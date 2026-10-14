@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نور الإسلام</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b0b;color:#f8f3df;font-family:Arial,sans-serif}
+header{text-align:center;padding:32px 15px;background:linear-gradient(#202015,#080808);border-bottom:2px solid #d4af37}
+header h1{color:#e4c35a;font-size:34px;margin:8px}
+header p{color:#ddd}
+nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:18px}
+nav a{color:#f0d77a;text-decoration:none;border:1px solid #9f8127;border-radius:20px;padding:10px 14px}
+main{max-width:800px;margin:auto;padding:10px}
+section{background:#171713;border:1px solid #695720;border-radius:16px;margin:18px 0;padding:22px}
+h2{color:#e2c35c;margin-top:0}
+.verse{font-size:25px;line-height:2.1;color:#f8e9b0;text-align:center}
+p{line-height:1.9}
+button{background:#d4af37;color:#17130a;border:0;border-radius:9px;padding:12px 18px;font-size:16px;cursor:pointer;margin:5px}
+button:active{transform:scale(.98)}
+.card{padding:12px;background:#222219;border-radius:10px;margin:10px 0}
+a.gold{color:#e2c35c}
+#count{font-size:25px;color:#e2c35c}
+footer{text-align:center;color:#aaa;padding:25px}
+</style>
+</head>
+<body>
+<header>
+<div style="font-size:38px">☪</div>
+<h1>نور الإسلام</h1>
+<p>﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</p>
+</header>
+
+<nav>
+<a href="#quran">القرآن الكريم</a>
+<a href="#hadith">حديث اليوم</a>
+<a href="#azkar">الأذكار</a>
+<a href="#tasbih">السبحة</a>
+</nav>
+
+<main>
+<section id="quran">
+<h2>📖 القرآن الكريم</h2>
+<p>اقرأ القرآن الكريم واستمع إلى التلاوات من مصدر موثوق.</p>
+<div class="card">
+<h3>سورة الفاتحة</h3>
+<p class="verse">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
+الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ<br>
+الرَّحْمَٰنِ الرَّحِيمِ<br>
+مَالِكِ يَوْمِ الدِّينِ</p>
+<a class="gold" href="https://quran.com/1" target="_blank" rel="noopener">قراءة السورة كاملة على Quran.com</a>
+</div>
+<div class="card">
+<h3>كل سور القرآن الكريم</h3>
+<a class="gold" href="https://quran.com/ar" target="_blank" rel="noopener">افتح المصحف الإلكتروني ←</a>
+</div>
+</section>
+
+<section id="hadith">
+<h2>📜 حديث اليوم</h2>
+<p class="verse">«إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ»</p>
+<p>متفق عليه: رواه البخاري ومسلم.</p>
+</section>
+
+<section id="azkar">
+<h2>🤲 أذكار مختارة</h2>
+<div class="card">
+<p>سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</p>
+<p>من الذكر العظيم الذي ورد فضله في السنة النبوية.</p>
+</div>
+<div class="card">
+<p>أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</p>
+<p>الاستغفار والتوبة من الأعمال التي يُكثر منها المسلم.</p>
+</div>
+<div class="card">
+<p>لَا إِلَهَ إِلَّا اللَّهُ</p>
+<p>ذكر التوحيد.</p>
+</div>
+</section>
+
+<section id="tasbih">
+<h2>📿 السبحة الإلكترونية</h2>
+<p>اضغط على الزر لزيادة عدد التسبيحات.</p>
+<p>العدد: <span id="count">0</span></p>
+<button onclick="count++;document.getElementById('count').textContent=count">سبّح</button>
+<button onclick="count=0;document.getElementById('count').textContent=count">إعادة العداد</button>
+</section>
+</main>
+
+<footer>نور الإسلام · نسأل الله أن ينفع بهذا العمل</footer>
+<script>let count=0;</script>
+</body></body>
+</html><footer style="text-align:center; padding:20px; margin-top:30px; color:#D4AF37; border-top:1px solid #D4AF37;">
+  <p>© 2026 يوسف محمد كشك</p>
+  <p>جميع الحقوق محفوظة</p>
+</footer>
+

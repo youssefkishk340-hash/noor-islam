@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Noor Islam</string>
+    <string name="title_activity_main">Noor Islam</string>
+    <string name="package_name">com.youssefkishk.noorislam</string>
+    <string name="custom_url_scheme">com.youssefkishk.noorislam</string>
+</resources>
