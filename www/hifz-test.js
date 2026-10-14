@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           language: "ar-EG",
           maxResults: 1,
           partialResults: false,
-          popup: false
+          popup: true
         });
 
         const spoken = result.matches?.[0] || "";
