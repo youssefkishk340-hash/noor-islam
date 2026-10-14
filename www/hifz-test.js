@@ -94,25 +94,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     const voiceStatus = voiceBox.querySelector("#hifz-voice-status");
     const transcript = voiceBox.querySelector("#hifz-transcript");
 
-    voiceButton.addEventListener("click", () => {
-      const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!Recognition) {
-        voiceStatus.textContent =
-          "التعرف على الصوت غير مدعوم في WebView الحالي. استخدم اختبار الحفظ للمراجعة.";
+    voiceButton.addEventListener("click", async () => {
+      const plugin = window.SpeechRecognitionPlugin;
+
+      if (!plugin) {
+        voiceStatus.textContent = "إضافة التعرف على الصوت غير جاهزة. تأكد من تحميل ملف speech-plugin.bundle.js.";
         return;
       }
 
-      const recognition = new Recognition();
-      recognition.lang = "ar-EG";
-      recognition.continuous = false;
-      recognition.interimResults = false;
-
-      voiceStatus.textContent = "جاري الاستماع... اقرأ الآيات الآن.";
-      transcript.textContent = "";
       voiceButton.disabled = true;
+      voiceStatus.textContent = "جاري تجهيز الميكروفون...";
+      transcript.textContent = "";
 
-      recognition.onresult = event => {
-        const spoken = event.results[0][0].transcript || "";
+      try {
+        const availability = await plugin.available();
+        if (!availability.available) {
+          voiceStatus.textContent = "التعرف على الصوت غير متاح على الجهاز حاليًا.";
+          return;
+        }
+
+        const permission = await plugin.requestPermissions();
+        if (permission.speechRecognition !== "granted") {
+          voiceStatus.textContent = "اسمح للتطبيق باستخدام الميكروفون ثم جرّب مرة أخرى.";
+          return;
+        }
+
+        voiceStatus.textContent = "جاري الاستماع... اقرأ الآيات الآن.";
+
+        const result = await plugin.start({
+          language: "ar-EG",
+          maxResults: 1,
+          partialResults: false,
+          popup: true
+        });
+
+        const spoken = result.matches?.[0] || "";
+        if (!spoken) {
+          voiceStatus.textContent = "لم يتم التعرف على كلام. جرّب مرة أخرى.";
+          return;
+        }
+
         transcript.textContent = "اللي اتسمع: " + spoken;
 
         const surah = surahs[Number(surahSelect.value) - 1];
@@ -132,26 +153,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         const a = normalize(spoken);
         const b = normalize(expected);
         const wordsA = new Set(a.split(" ").filter(Boolean));
-        const wordsB = b.split(" ").filter(Boolean);
+        const wordsB = new Set(b.split(" ").filter(Boolean));
         const common = [...wordsA].filter(word => wordsB.has(word)).length;
-        const score = wordsB.length ? Math.round(common / wordsB.size * 100) : 0;
+        const score = wordsB.size ? Math.round(common / wordsB.size * 100) : 0;
 
         voiceStatus.textContent =
           `تشابه تقريبي للكلمات: ${score}%. دي مقارنة آلية بسيطة وليست تقييمًا دقيقًا للتلاوة أو التجويد.`;
-      };
-
-      recognition.onerror = event => {
-        voiceStatus.textContent = "تعذر التعرف على الصوت: " + event.error;
-      };
-
-      recognition.onend = () => {
-        voiceButton.disabled = false;
-      };
-
-      try {
-        recognition.start();
-      } catch {
-        voiceStatus.textContent = "تعذر تشغيل الميكروفون. تحقق من أذونات التطبيق.";
+      } catch (error) {
+        voiceStatus.textContent = "تعذر تشغيل التعرف على الصوت: " +
+          (error?.message || String(error));
+      } finally {
         voiceButton.disabled = false;
       }
     });
